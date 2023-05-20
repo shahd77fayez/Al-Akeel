@@ -17,11 +17,14 @@ public class Restaurant
 	
 	private String name;
 	
-	private String OwnerID;
+	@OneToOne
+	@JoinColumn(name="UserId")
+	private User OwnerID;
 	
 	@OneToMany(mappedBy="fk_restaurantId")
 	private  Set<Meal> listofMeals;
 	
 	@OneToMany(mappedBy="fk_restaurantId")
 	private  Set<Order> listofOrders;
+	
 }

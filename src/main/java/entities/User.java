@@ -13,4 +13,6 @@ public class User
 	private int UserId ;
 	private String name;
 	private RolesEnum role;
+	@OneToOne(mappedBy="OwnerID")
+	private Restaurant RestOwner;
 }
