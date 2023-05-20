@@ -13,9 +13,13 @@ public class Runner
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int RunnerId;
+	
 	private String name;
+	
 	private statusEnum  Status;
+	
 	private double delivery_fee;
+	
+	@OneToMany(mappedBy="fk_runnerId")
 	private Set<Order> Orders_list;
-
 }

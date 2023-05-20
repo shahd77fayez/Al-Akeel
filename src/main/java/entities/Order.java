@@ -14,13 +14,18 @@ public class Order
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int OrderId;
+	
+	@OneToMany(mappedBy="fk_OrderID")
 	private Set<Meal> Item_array; 
+	
 	private int total_price; 
+	@ManyToOne
+	@JoinColumn(name="RunnerId")
 	private Runner fk_runnerId; 
+	
+	@ManyToOne
+	@JoinColumn(name="Restid")
 	private Restaurant fk_restaurantId; 
+	
 	private order_status_Enum os;
-	
-	
-
-
 }
