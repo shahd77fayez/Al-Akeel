@@ -16,26 +16,27 @@ public class Runner
 	
 	private String name;
 	
-	@Enumerated(EnumType.STRING)
-	private statusEnum  Status;
+	private String  Status;
 
 	private int completedTrips;
 	
-	//////////////////////////////////////////////////////
 
 	
 	private double delivery_fee;
 	
-	/*@OneToMany(mappedBy="fk_runnerId")
-	private List<Order> Orders_list;
-	*/
+	@OneToMany(mappedBy="runner_id", fetch=FetchType.EAGER)
+	private List<custumerOrder> Orders_list;
+	
+	//////////////////////////////////////////////////////
+
+	
 	public Runner(){
 	}
 
 	public Runner(String name){
 		this.name = name;
 		this.completedTrips = 0;
-		this.Status = statusEnum.available;
+		this.Status ="available";
 
 	}
 	public int getCompletedTrips() {
@@ -45,15 +46,24 @@ public class Runner
 	public void setCompletedTrips(int completedTrips) {
 		this.completedTrips = completedTrips;
 	}
+	
+	public String printOrdersInfo()
+	{
+		String result="";
+		for(int i=0;i<Orders_list.size();i++)
+		{
+			result+="Order id: "+Orders_list.get(i).getOrderId()+ "     Order Date:"+Orders_list.get(i).getDate()+"   Runner name: "+getName()+ "     Runner ID:"+getRunnerId()+"\n";
+		}
+		return result;	
+	}
+	
+	
 	public String printInfo()
 	{
 		String result="";
 		
 		result+="name: "+getName()+ "     Runner ID:"+getRunnerId()+"\n";
-		
-		
-		return result;
-		
+		return result; 
 	}
 
 	public int getRunnerId() {
@@ -72,11 +82,11 @@ public class Runner
 		this.name = name;
 	}
 
-	public statusEnum getStatus() {
+	public String getStatus() {
 		return Status;
 	}
 
-	public void setStatus(statusEnum status) {
+	public void setStatus(String status) {
 		Status = status;
 	}
 
@@ -88,16 +98,16 @@ public class Runner
 		this.delivery_fee = delivery_fee;
 	}
 
-	/*public List<Order> getOrders_list() {
+	public List<custumerOrder> getOrders_list() {
 		return Orders_list;
 	}
 
-	public void setOrders_list(List<Order> orders_list) {
+	public void setOrders_list(List<custumerOrder> orders_list) {
 		Orders_list = orders_list;
 	}
-	*/
+	
 	public void setStatusAvailable(){
-		this.Status = statusEnum.available;
+		this.Status = "available"; 
 	}
 
 }

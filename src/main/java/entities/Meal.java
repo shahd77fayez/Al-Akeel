@@ -17,16 +17,16 @@ public class Meal
 	 
 	 private double price;
 	 
-	 @ManyToOne(fetch=FetchType.EAGER)
+	 @ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	 @JoinColumn(name="restID") 
 	 private Restaurant fk_restaurantId1;
 	 
-	 /*@ManyToOne(fetch=FetchType.EAGER)
-	 @JoinColumn(name="OrderID")
-	 private Order fk_OrderID;
-	 */
+	 @ManyToOne(fetch=FetchType.EAGER)
+	 @JoinColumn(name="OrderID") 
+	 private custumerOrder fk_Order;
+	 
 	 ///////////////////////////////////////////////////////////////
-	 public Meal()
+	 public Meal() 
 		{
 			
 		}
@@ -68,13 +68,14 @@ public class Meal
 	  {
 		this.fk_restaurantId1 = fk_restaurantId;
 	  }
-	 /*public Order getFk_OrderID() 
+	  
+	  public custumerOrder getFk_OrderID() 
 	  {
-		 return fk_OrderID;
+		 return fk_Order;
 	  }
-	  public void setFk_OrderID(Order fk_OrderID) 
+	  public void setFk_OrderID(custumerOrder fk_OrderID) 
 	  {
-		this.fk_OrderID = fk_OrderID;
+		this.fk_Order = fk_OrderID;
 	  }  
-	  */
+	  
 }

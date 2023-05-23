@@ -2,6 +2,7 @@ package services;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,12 +11,15 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import entities.Order;
+import entities.custumerOrder;
+import entities.Meal;
+import entities.RestEntity;
 import entities.Restaurant;
 import entities.Runner;
 import entities.statusEnum;
@@ -24,66 +28,100 @@ import entities.statusEnum;
 @Path("/Customer") 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed({"owner,customer"})
 public class customer_Services
 {
 
-//    // get the EntityManager instance
-//	@PersistenceContext(unitName="SecondProject")
-//	private EntityManager em;  
-//	
-//	
-//	
-//    //////////////////////////////////////////////////////////////////
-//	                        //Create Order
-//	@POST
-//	@Path("/AddOrder")
-//	public String CreateOrder(Order r)
-//	{
-//	 em.persist(r); 
-//	 return "Order is added successfully";
-//	}
-//    ////////////////////////////////////////////////////////////////////
-//							//Find Runner
-//	public void FindRunner()
-//	{
-//		// Find a random available runner from the database
-//		TypedQuery<Runner> query = em.createQuery("SELECT r FROM Runner r WHERE r.Status = :status", Runner.class);
-//		query.setParameter("status", statusEnum.available);
-//		query.setMaxResults(1);
-//		Runner runner = query.getSingleResult();
-//	}
-//	//////////////////////////////////////////////////////////////////////////////////////////////
-//	// Create a new order object
-//	/*Order order = new Order();
-//	order.setFk_restaurantId(restaurant); // set the restaurant associated with the order
-//	order.setFk_runnerId(runner); // set the runner associated with the order
-//	order.setDate(new Date()); // set the order date to the current date
-//	order.setOs(order_status_Enum.preparing); // set the order status to preparing*/
-//	////////////////////////////////////////////////////////////////////////////////////////////////
-//	
-//	@GET
-//	@Path("/OrderInfo")  
-//	public List<Order> OrderDetails() 
-//	{
-//    	TypedQuery<Order> query = em.createQuery("SELECT NEW Order(r.fk_runnerId,r.total_price,r.Date) FROM Order r ",Order.class);
-//    	return query.getResultList();	
-//    	
-//	}
-//    
-//    
-//    			/////////////////////////////////////////////////////////////////////
-//    
-//    
-//    
-//    //////////////////////////////////////////////////////////////////////
-//   /* TypedQuery<String> query = em.createQuery(
-//    	    "SELECT r.name FROM Runner r " +
-//    	    "JOIN Order o ON r.id = o.runner.id " +
-//    	    "WHERE o.id = :orderId AND o.status = :status", String.class);
-//    	query.setParameter("orderId", orderId);
-//    	query.setParameter("status", OrderStatus.BUSY);
-//    	String runnerName = query.getSingleResult();
-//    	System.out.println("Runner name: " + runnerName);
-//*/
+    // get the EntityManager instance
+	@PersistenceContext(unitName="SecondProject")
+	private EntityManager em; 
+	
+    //////////////////////////////////////////////////////////////////
+	                        //Create Order
+	@RolesAllowed("customer")
+	@POST
+	@Path("/AddOrder/{id}") 
+	public String CreateOrder(@PathParam("id") Long restaurantId ,custumerOrder o) 
+	{
+	       RestEntity rest=em.find(RestEntity.class, restaurantId);
+			if (rest == null) { 
+	           return "restaurant id is not found";
+	       }
+			
+			o.setFk_restaurantId(rest);
+			
+			em.persist(o);
+			rest.getListofOrders().add(o);
+			em.merge(rest);
+						
+         return "Order Created Successfully ";	
+	 
+	}
+	
+	@RolesAllowed("customer")
+	@POST
+	@Path("/AddMealToOrder/{id}") 
+	public String addMeal(@PathParam("id") Long OrderId ,Meal meal) 
+	{
+		custumerOrder order=em.find(custumerOrder.class, OrderId);
+			if (order == null) { 
+	           return "Order id is not found";
+	       } 
+			
+			
+		meal.setFk_OrderID(order);	
+		em.persist(meal);
+			
+		order.getListofMeals().add(meal);
+		em.merge(order); 
+        return "meal added to  order  Successfully ";	
+	 
+	}
+    ////////////////////////////////////////////////////////////////////
+	             //get order by id
+	@PermitAll
+	@GET
+	@Path("/getOrder/{id}") 
+	public String GetOrder(@PathParam("id") Long restaurantId) 
+	{
+	   RestEntity rest=em.find(RestEntity.class, restaurantId);
+       return rest.print(); 
+	} 
+	   
+	/////////////////////////////////////////////////////////////////////
+	                           
+	@PermitAll
+	@POST
+	@Path("/EditOrder/{orderId}/{mealId}")  
+    public String EditOrder(@PathParam("orderId") long OrderId,@PathParam("mealId") long MealId,Meal m) 
+	{
+	       custumerOrder order=em.find(custumerOrder.class, OrderId); 
+	       Meal meal=em.find(Meal.class,MealId);
+	       
+		   if(order.getOs().equals("canceled"))
+		   {
+			   return "order already canceled"; 
+		   }
+		   
+		   if(order.getOs().equals("delivered"))
+		   {
+			   return "order already delivered";
+		   }
+		   if(!order.getOs().equals("canceled") &&  !order.getOs().equals("delivered") && !order.getOs().equals("preparing"))
+		   {
+			   return "wrong order status";
+		   }
+		   if(order.getOs().equals("preparing"))
+		   {
+			   meal.setName(m.getName());
+			   meal.setPrice(m.getPrice());
+			   em.merge(meal);
+		       
+	       }
+		   
+           return "edited successfully"; 
+	}
+    
+    
+    			/////////////////////////////////////////////////////////////////////
+    
 }

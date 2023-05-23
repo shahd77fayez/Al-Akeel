@@ -15,10 +15,10 @@ public class User
 	
 	private String name;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) 
 	private RolesEnum role;
 	
-	@OneToOne(mappedBy="OwnerID" ,fetch=FetchType.EAGER)
+	@OneToOne(mappedBy="OwnerID" ,fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	private Restaurant RestOwner;
 	
 	////////////////////////////////////////////////////////////

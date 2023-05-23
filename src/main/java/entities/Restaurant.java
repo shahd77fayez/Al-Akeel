@@ -17,12 +17,12 @@ public class Restaurant
 	@Column(name = "restID")
 	private long Restid; 
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name="UserID")
 	private User OwnerID;
 	
 	
-	@OneToMany(mappedBy="fk_restaurantId1",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="fk_restaurantId1",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private  List<Meal> listofMeals;
 	
 	
@@ -92,13 +92,4 @@ public class Restaurant
 	public void setListofMeals(List<Meal> listofMeals) {
 		this.listofMeals = listofMeals;
 	}
-/*
-	public List<Order> getListofOrders() {
-		return listofOrders;
-	}
-
-	public void setListofOrders(List<Order> listofOrders) {
-		this.listofOrders = listofOrders;
-	}
-*/
 }

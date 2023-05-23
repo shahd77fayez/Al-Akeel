@@ -4,7 +4,7 @@
 	 <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 		<class>entities.User</class>
 		<class>entities.Meal</class>
-		<class>entities.Order</class>
+		<class>entities.custumerOrder</class>
 		<class>entities.Runner</class>
 		<class>entities.Restaurant</class>
 		<class>entities.RestEntity</class>

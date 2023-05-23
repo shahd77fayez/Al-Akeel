@@ -3,6 +3,7 @@ package entities;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,16 +19,18 @@ import javax.persistence.Table;
 @Table(schema = "public") 
 public class RestEntity 
 {
-private String name;
+
+	
+   private String name;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "restIDD")
-	private long Restid; 
-
+	@Column(name = "RID")
+	private long Rid; 
 	
-	@OneToMany(mappedBy="fk_restaurantId2",fetch = FetchType.EAGER)
-	private  List<Order> listofOrders;
+	
+	@OneToMany(mappedBy="restaurantId1",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	private  List<custumerOrder> listofOrders;   
 	
 	////////////////////////////////////////////////////////////////////////
 	public RestEntity()
@@ -36,39 +39,36 @@ private String name;
 	}
 	public RestEntity(long id,String n)
 	{
-		Restid=id;
+		Rid=id;
 		name=n;
 	}
 	
-	public String printInfo()
+	public String printOrderById(int id) 
 	{
 		String result="";
 		
-		result+="name: "+getName()+ "     RestaurantID:"+getRestid()+"Meals:"+print()+"\n";
-		
+		result+= "Order Date:"+listofOrders.get(id).getDate()+"      Order Status:"+listofOrders.get(id).getOs()+"      Meals:"+listofOrders.get(id).printMeals()+"     RestaurantName :"+getName()+"\n";
 		
 		return result;
-		
 	}
+	
 	
 	public String print()
 	{
 		String result="";
 		for(int i=0;i<listofOrders.size();i++)
 		{
-			result+="Order id: "+listofOrders.get(i).getOrderId()+ "     Date:"+listofOrders.get(i).getDate()+ "     RestaurantID:"+getRestid()+"\n";
+			result+= "Order Date:"+listofOrders.get(i).getDate()+"      Order Status:"+listofOrders.get(i).getOs()+"      Meals:"+listofOrders.get(i).printMeals()+"     RestaurantName :"+getName()+"\n";
 		}
-		
 		return result;
-		
 	}
 	
 	public long getRestid() {
-		return Restid;
+		return Rid;
 	}
 
 	public void setRestid(long restid) {
-		Restid = restid;
+		Rid = restid;
 	}
 
 	public String getName() {
@@ -80,14 +80,11 @@ private String name;
 	}
 
 
-	
-	public List<Order> getListofOrders() {
+	public List<custumerOrder> getListofOrders() {
 		return listofOrders;
 	}
 
-	public void setListofOrders(List<Order> listofOrders) {
-		this.listofOrders = listofOrders;
+	public void setListofOrders(List<custumerOrder> Orders) {
+	    listofOrders =Orders;
 	}
-
-
 }
