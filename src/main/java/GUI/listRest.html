@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="listRest.css">
+    <title>List of Restaurants</title>
+  </head>
+  <body>
+      <header>
+          <h1 class="header">Restaurant Ordering</h1>
+        </header>
+        <nav>
+            <a href="CustomerFunctionalities.html">Create Order</a>
+            <a href="editOrder.html">Edit Order</a>
+            <a href="listRest.html">List Restaurants</a>
+        </nav>
+        <br>
+        <br>
+        <div class="rest">
+        <img src="image-removebg-preview (8).png" alt="Restaurant">
+        </div>
+    <h1>List of Restaurants</h1>
+    <div class="center">
+        <button id="list-restaurants-btn">List Restaurants</button>
+      </div>
+    <ul id="restaurant-list"></ul>
+      <br>
+    <script>
+      const restaurantList = document.getElementById('restaurant-list');
+      const listRestaurantsBtn = document.getElementById('list-restaurants-btn');
+      
+      listRestaurantsBtn.addEventListener('click', () => {
+        // Replace with your own list of restaurants
+        const restaurants = ['KFC', 'Mcdonalds', 'Papa johns', 'Burger King', 'Pizza hut'];
+
+        // Clear existing list items
+        restaurantList.innerHTML = '';
+
+        // Create list items for each restaurant
+        restaurants.forEach((restaurant) => {
+          const li = document.createElement('li');
+          li.textContent = restaurant;
+          restaurantList.appendChild(li);
+        });
+      });
+    </script>
+  </body>
+</html>

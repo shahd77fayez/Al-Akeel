@@ -13,7 +13,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/hp/Downloads/jackson-databind-2.1.1.jar/jackson-databind-2.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hp/Downloads/jackson-core-2.1.1.jar/jackson-core-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/hp/Downloads/jackson-databind-2.1.1.jar/jackson-databind-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/hp/Downloads/jackson-core-2.1.1.jar/jackson-core-2.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hanaa/Downloads/jboss-eap-7.3.0/jboss-eap-7.3/modules/system/layers/base/javax/persistence/api/main/jakarta.persistence-api-2.2.3.redhat-00001.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hanaa/Downloads/jboss-eap-7.3.0/jboss-eap-7.3/modules/system/layers/base/javax/ejb/api/main/jboss-ejb-api_3.2_spec-2.0.0.Final-redhat-00001.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hanaa/Downloads/jboss-eap-7.3.0/jboss-eap-7.3/modules/system/layers/base/javax/ws/rs/api/main/jboss-jaxrs-api_2.1_spec-2.0.1.Final-redhat-00001.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

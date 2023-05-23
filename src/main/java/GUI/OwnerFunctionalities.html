@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="createMenu.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src="menuItems.js"></script>
+    <title>Restaurant Management</title>
+</head>
+<body>
+  <header>
+    <h1>Restaurant Management</h1>
+  </header>
+  <nav>
+    <a href="addRest.html">Add Restaurant</a>
+    <a href="checkRestaurant.html">Create Restaurant Menu</a>
+    <a href="editJs.html">Edit Restaurant</a>
+    <a href="getData.html">Get Restaurant Details by ID</a>
+    <a href="createRepoID.html">Create Restaurant Report</a>
+  </nav>
+  <br>
+    <main>
+      <h2>Create Restaurant Menu</h2>
+		<form id="add-meal-form">
+		  <label for="meal-name">Meal Name:</label>
+		  <input type="text" id="meal-name" name="meal-name" required>
+		  <label for="meal-price">Meal Price:</label>
+		  <input type="number" id="meal-price" name="meal-price" min="5" step="1" required>
+		  <br>
+		  <button type="submit">Add Meal</button>
+		</form>
+      <script>
+      const addMealForm = document.getElementById('add-meal-form');
+
+      addMealForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        const formData = new FormData(addMealForm);
+        const restaurantId = 1; // Replace with the ID of the restaurant where you want to add the meal
+        
+        fetch('http://api/Owner/restMeal/${restaurantId}', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.text())
+          .then(result => {
+            // Do something with the response result
+            console.log(result);
+          })
+          .catch(error => console.error(error));
+      });
+      </script>
+      
+</body>
+</html>

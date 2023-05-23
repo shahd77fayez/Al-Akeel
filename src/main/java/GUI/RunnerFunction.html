@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="RunnerFunction.css">
+    <title>Runner</title>
+</head>
+<body>
+    <header>
+        <h1 class="header">Runner Management</h1>
+      </header>
+      <nav>
+        <a href="RunnerFunction.html">Mark Order</a>
+        <a href="Trips.html">Number of Trips</a>
+      </nav>
+      <div class="container1">
+<img src="giphy (7).gif" alt="Customer" ><br>
+</div>    
+<div class="container">
+        <form id="order-form">
+            <h2>Mark Order as Delivered</h2>
+            <input type="text" id="order-id" name="order-id" placeholder="Enter order ID" required>
+            <div id="order-error" class="error-message"></div>
+            <div id="order-success" class="success-message"></div>
+        </form>
+
+        <form id="runner-form">
+            <label>
+                <div class="status-toggle">
+                    <input type="checkbox" id="status-available" name="status" value="available">
+                    <label for="status-available">Click to set Status Available</label>
+              <div class="toggle-switch"></div>
+            </div>        
+            <button type="submit">Completed</button>
+            <div id="runner-error" class="error-message"></div>
+            <div id="runner-success" class="success-message"></div>
+        </form>
+    </div>
+</body>
+</html>
