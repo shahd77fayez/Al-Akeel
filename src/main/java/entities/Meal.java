@@ -1,13 +1,7 @@
 package entities;
 
 import javax.ejb.Stateless;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Stateless
 @Entity
@@ -16,28 +10,37 @@ public class Meal
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private int Mealid;
+	@Column(name="MealID")
+	 private long Mealid;
 	
 	 private String name;
 	 
 	 private double price;
 	 
-	 /*@Column(name = "restaurant_id")
-	 private Long restaurantId;
-	 */
-	 @ManyToOne
-	 @JoinColumn(name="restaurant_id" , referencedColumnName = "Restid", insertable = false, updatable = false)
-	 private Restaurant fk_restaurant;
+	 @ManyToOne(fetch=FetchType.EAGER)
+	 @JoinColumn(name="restID") 
+	 private Restaurant fk_restaurantId1;
 	 
-	 @ManyToOne
-	 @JoinColumn(name="OrderId")
+	 /*@ManyToOne(fetch=FetchType.EAGER)
+	 @JoinColumn(name="OrderID")
 	 private Order fk_OrderID;
-	 
-	  public int getMealid() 
+	 */
+	 ///////////////////////////////////////////////////////////////
+	 public Meal()
+		{
+			
+		}
+		public Meal(long id,String n,double p)
+		{
+			Mealid=id;
+			name=n;
+			price=p;
+		}
+	  public long getMealid() 
 	  {
 		return Mealid;
 	  }
-	  public void setMealid(int mealid) 
+	  public void setMealid(long mealid) 
 	  {
 		Mealid = mealid;
 	  }
@@ -59,19 +62,19 @@ public class Meal
 	  }
 	  public Restaurant getFk_restaurantId() 
 	  {
-		return fk_restaurant;
+		return fk_restaurantId1;
 	  }
 	  public void setFk_restaurantId(Restaurant fk_restaurantId) 
 	  {
-		this.fk_restaurant = fk_restaurantId;
+		this.fk_restaurantId1 = fk_restaurantId;
 	  }
-	  /*public Order getFk_OrderID() 
+	 /*public Order getFk_OrderID() 
 	  {
 		 return fk_OrderID;
 	  }
 	  public void setFk_OrderID(Order fk_OrderID) 
 	  {
 		this.fk_OrderID = fk_OrderID;
-	  }
+	  }  
 	  */
 }

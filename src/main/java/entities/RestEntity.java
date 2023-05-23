@@ -1,37 +1,40 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.*;
 
+import javax.ejb.Stateless;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 @Stateless
 @Entity
 @Table(schema = "public") 
-public class Restaurant 
+public class RestEntity 
 {
-	private String name;
+private String name;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "restID")
+	@Column(name = "restIDD")
 	private long Restid; 
+
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="UserID")
-	private User OwnerID;
-	
-	
-	@OneToMany(mappedBy="fk_restaurantId1",fetch = FetchType.EAGER)
-	private  List<Meal> listofMeals;
-	
+	@OneToMany(mappedBy="fk_restaurantId2",fetch = FetchType.EAGER)
+	private  List<Order> listofOrders;
 	
 	////////////////////////////////////////////////////////////////////////
-	public Restaurant()
+	public RestEntity()
 	{
 		
 	}
-	public Restaurant(long id,String n)
+	public RestEntity(long id,String n)
 	{
 		Restid=id;
 		name=n;
@@ -51,9 +54,9 @@ public class Restaurant
 	public String print()
 	{
 		String result="";
-		for(int i=0;i<listofMeals.size();i++)
+		for(int i=0;i<listofOrders.size();i++)
 		{
-			result+="Meal name: "+listofMeals.get(i).getName()+  "     price:"+listofMeals.get(i).getPrice()+ "     RestaurantID:"+getRestid()+"\n";
+			result+="Order id: "+listofOrders.get(i).getOrderId()+ "     Date:"+listofOrders.get(i).getDate()+ "     RestaurantID:"+getRestid()+"\n";
 		}
 		
 		return result;
@@ -76,23 +79,8 @@ public class Restaurant
 		this.name = name;
 	}
 
-	public User getOwnerID() {
-		return OwnerID;
-	}
 
-	public void setOwnerID(User ownerID) {
-		OwnerID = ownerID;
-	}
-
-	public List<Meal> getListofMeals() {
-		
-		return listofMeals;
-	}
-
-	public void setListofMeals(List<Meal> listofMeals) {
-		this.listofMeals = listofMeals;
-	}
-/*
+	
 	public List<Order> getListofOrders() {
 		return listofOrders;
 	}
@@ -100,5 +88,6 @@ public class Restaurant
 	public void setListofOrders(List<Order> listofOrders) {
 		this.listofOrders = listofOrders;
 	}
-*/
+
+
 }

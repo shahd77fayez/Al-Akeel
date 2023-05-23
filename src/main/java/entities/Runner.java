@@ -1,7 +1,6 @@
 package entities;
 
-import java.util.Set;
-
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -10,20 +9,53 @@ import javax.persistence.*;
 @Table(schema = "public") 
 public class Runner 
 {
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="RunnerID")
 	private int RunnerId;
 	
 	private String name;
 	
+	@Enumerated(EnumType.STRING)
 	private statusEnum  Status;
+
+	private int completedTrips;
+	
+	//////////////////////////////////////////////////////
+
 	
 	private double delivery_fee;
 	
 	/*@OneToMany(mappedBy="fk_runnerId")
-	private Set<Order> Orders_list;
-	
+	private List<Order> Orders_list;
 	*/
+	public Runner(){
+	}
+
+	public Runner(String name){
+		this.name = name;
+		this.completedTrips = 0;
+		this.Status = statusEnum.available;
+
+	}
+	public int getCompletedTrips() {
+		return completedTrips;
+	}
+
+	public void setCompletedTrips(int completedTrips) {
+		this.completedTrips = completedTrips;
+	}
+	public String printInfo()
+	{
+		String result="";
+		
+		result+="name: "+getName()+ "     Runner ID:"+getRunnerId()+"\n";
+		
+		
+		return result;
+		
+	}
+
 	public int getRunnerId() {
 		return RunnerId;
 	}
@@ -56,13 +88,16 @@ public class Runner
 		this.delivery_fee = delivery_fee;
 	}
 
-	/*public Set<Order> getOrders_list() {
+	/*public List<Order> getOrders_list() {
 		return Orders_list;
 	}
 
-	public void setOrders_list(Set<Order> orders_list) {
+	public void setOrders_list(List<Order> orders_list) {
 		Orders_list = orders_list;
 	}
-*/
+	*/
+	public void setStatusAvailable(){
+		this.Status = statusEnum.available;
+	}
 
 }
