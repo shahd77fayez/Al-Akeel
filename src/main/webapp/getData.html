@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="getData.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <title>Get Restaurant Data</title>
+</head>
+<body>
+<header>
+    <h1>Restaurant Management</h1>
+  </header>
+  <nav>
+    <a href="addRest.html">Add Restaurant</a>
+    <a href="checkRestaurant.html">Create Restaurant Menu</a>
+    <a href="editJs.html">Edit Restaurant</a>
+    <a href="getData.html">Get Restaurant Details by ID</a>
+    <a href="createRepoID.html">Create Restaurant Report</a>
+  </nav>
+  <br>
+          <div class="container">
+          <form>
+            <br><br><label for="restaurant-id">Enter the restaurant ID:</label><br>
+            <input type="text" id="restaurant-id" name="restaurant-id">
+            <button type="submit" onclick="getRestaurantData()">Get Details</button>
+          </form>
+          <div id="restaurant-data"></div>
+
+          <script>
+            function getRestaurantData() {
+              const form = document.querySelector('form');
+              form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const restaurantId = document.getElementById('restaurant-id').value;
+          
+                // Replace this with your own data retrieval function
+                let data = {};
+
+                  if (restaurantId === '1') {
+                    data = {
+                      id: '1',
+                      name: 'KFC',
+                      ownerId: '123',
+                      meals: [{name:'Burger',price:'100EGP'}, {name:'Fried Chicken',price:'150EGP'},{name: 'Salad', price:'50EGP'}]
+                    };
+                  } else if (restaurantId === '2') {
+                    data = {
+                      id: '2',
+                      name: 'Mcdonalds',
+                      ownerId: '123',
+                      meals: [{name:'Burger' ,price:'150EGP'}, {name:'Fries', price:'75EGP'},{name:'Chicken Burger',price:'170EGP'}, {name:'Cola',price:'50EGP'}]
+                    };
+                  } else {
+                    data = {
+                      id: '3',
+                      name: 'Pizza Hut',
+                      ownerId: '456',
+                      meals: [{name:'Pizza',price:'170EGP'}, {name:'Pasta',price:'120EGP'}, {name:'Garlic Bread',price:'50EGP'}, {name:'Salad',price:'70EGP'}]
+                    };
+                  }
+                // Create HTML to display the data
+                const html = `
+                  <h2>${data.name}</h2>
+                  <p>Restaurant ID: ${data.id}</p>
+                  <p>Owner ID: ${data.ownerId}</p>
+                  <h3>Meals:</h3>
+                  ${data.meals.map(meal => `<li>${meal.name} - ${meal.price}</li>`).join('')}
+                `;
+          
+                 // Update the HTML of the restaurant-data div
+                 const restaurantDataDiv = document.getElementById('restaurant-data');
+                restaurantDataDiv.innerHTML = html;
+                })
+              };
+        </script>
+        <!-- <script>
+          function getRestaurantData() {
+
+                form.addEventListener('submit', (event) => {
+                  event.preventDefault();
+                  const restaurantId = document.getElementById('restaurant-id').value;
+
+                // Replace this with your own data retrieval function
+                const data = {
+                  id: restaurantId,
+                  name: 'The Best Restaurant',
+                  ownerId: 123,
+                  meals: ['Burger', 'Pizza', 'Salad']
+                };
+
+                // Create HTML to display the data
+                const html = `
+                  <h2>${data.name}</h2>
+                  <p>Restaurant ID: ${data.id}</p>
+                  <p>Owner ID: ${data.ownerId}</p>
+                  <h3>Meals:</h3>
+                  <ul>
+                    ${data.meals.map(meal => `<li>${meal}</li>`).join('')}
+                  </ul>
+                `;
+
+                // Update the HTML of the restaurant-data div
+                const restaurantDataDiv = document.getElementById('restaurant-data');
+                restaurantDataDiv.innerHTML = html;
+                }
+                )
+              }
+        </script> -->
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="editRest.css">
+    <title>Edit Restaurant Menu</title>
+</head>
+<body>
+<header>
+        <h1>Restaurant Management</h1>
+      </header>
+      <nav>
+        <a href="addRest.html">Add Restaurant</a>
+        <a href="checkRestaurant.html">Create Restaurant Menu</a>
+        <a href="editJs.html">Edit Restaurant</a>
+        <a href="getData.html">Get Restaurant Details by ID</a>
+        <a href="createRepoID.html">Create Restaurant Report</a>
+      </nav>
+      <br>
+         <main>
+            <h2>Edit Restaurant Menu</h2>
+             <form action="#" method="post">
+                <label for="menu-item">Choose a menu item to edit:</label>
+                <select id="menu-item" name="menu-item">
+                <option value="">--Select an item--</option>
+                <option value="item1">Item 1</option>
+                <option value="item2">Item 2</option>
+                <option value="item3">Item 3</option>
+                <option value="item4">Item 4</option>
+                </select>                
+                <label for="new-name">New name:</label>
+                <input type="text" id="new-name" name="new-name">
+                
+                <label for="new-price">New price:</label>
+                <input type="text" id="new-price" name="new-price">
+                
+                <button type="submit">Save changes</button>
+            </form>
+      
+    </div>
+</body>
+</html>

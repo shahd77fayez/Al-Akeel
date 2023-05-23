@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="CustomerFunctionalities.css">
+    <title>Order</title>
+</head>
+<body>
+    <header>
+        <h1 class="header">Restaurant Ordering</h1>
+      </header>
+      <nav>
+        <a href="CustomerFunctionalities.html">Create Order</a>
+        <a href="editOrder.html">Edit Order</a>
+        <a href="listRest.html">List Restaurants</a>
+      </nav>
+      <div class="image"><img src="13-removebg-preview.png" alt="order"></div>
+    <div class="container">
+        <form id="create-order-form">
+            <h2>Create Order</h2>
+            <select id="restaurant" name="restaurant" style="margin-right: 10px;">
+                <option value="">--Select a restaurant--</option>
+                <option value="1">Restaurant 1</option>
+                <option value="2">Restaurant 2</option>
+                <option value="3">Restaurant 3</option>
+            </select>
+            <label for="items">Enter the Items You Want to Order:</label>
+            <input type="text" id="items" name="items" style="margin-right: 10px;">
+        
+            <button type="submit">Create Order</button>
+            <div id="create-order-error" class="error-message"></div>
+        </form>
+
+        <div id="order-details" style="display: none;">
+            <h2>Order Details</h2>
+            <p>Total Value: <span id="total-value"></span></p>
+            <p>Runner Name: <span id="runner-name"></span></p>
+            <p>Items: <span id="ordered-items"></span></p>
+            <p>Delivery Fees: <span id="delivery-fees"></span></p>
+        </div>
+
+        <script>
+            const createOrderForm = document.querySelector('#create-order-form');
+            const orderDetailsDiv = document.querySelector('#order-details');
+            const totalValueSpan = document.querySelector('#total-value');
+            const runnerNameSpan = document.querySelector('#runner-name');
+            const orderedItemsSpan = document.querySelector('#ordered-items');
+            const deliveryFeesSpan = document.querySelector('#delivery-fees');
+            const createOrderError = document.querySelector('#create-order-error');
+
+            // Function to create a new order
+            createOrderForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const restaurantId = document.querySelector('#restaurant').value;
+                const items = document.querySelector('#items').value;
+
+                // Validate the form input
+                if (!restaurantId || !items) {
+                    createOrderError.innerText = 'Please fill in all fields.';
+                    return;
+                }
+
+                // Calculate the total receipt value
+                const itemsArray = items.split(',');
+                let total = 0;
+                for (let i = 0; i < itemsArray.length; i++) {
+                    const itemPrice = parseFloat(itemsArray[i].split(':')[1]);
+                    if (!isNaN(itemPrice)) {
+                        total += itemPrice;
+                    }
+                }
+
+                const deliveryFees = 5; // Set a fixed delivery fee of $5
+                total += deliveryFees;
+
+                // Generate a random runner name
+                const runners = ['John', 'Jane', 'Bob', 'Alice', 'Mike', 'Lisa'];
+                const runnerName = runners[Math.floor(Math.random() * runners.length)];
+
+                // Update the order details in the HTML
+                totalValueSpan.innerText = '$' + total.toFixed(2);
+                runnerNameSpan.innerText = runnerName;
+                orderedItemsSpan.innerText = items;
+                deliveryFeesSpan.innerText = '$' + deliveryFees.toFixed(2);
+
+                // Show the order details in the HTML
+                orderDetailsDiv.style.display = 'block';
+            });
+        </script>
+    </div>
+</body>
+</html>

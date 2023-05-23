@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="editOrder.css">
+    <title>Edit Order</title>
+</head>
+<body>
+<header>
+        <h1 class="header">Restaurant Ordering</h1>
+      </header>
+      <nav>
+        <a href="CustomerFunctionalities.html">Create Order</a>
+        <a href="editOrder.html">Edit Order</a>
+        <a href="listRest.html">List Restaurants</a>
+      </nav>
+     <div class="image"><img src="Preparing Order 2 (1).gif" alt="preparing"></div> 
+    <h2>Edit Order</h2><br>
+    <form>
+      <label for="order-id">Order ID:</label>
+      <input type="text" id="order-id" name="order-id"><br><br>
+      <label for="new-items">New Items:</label>
+      <input type="text" id="new-items" name="new-items"><br><br>
+      <button type="submit" id="submit-btn">Submit</button>
+    </form>
+    <script>
+        const orders = [
+        {id: 1, items: 'Burger, Fries', status: 'preparing', canceled: false},
+        {id: 2, items: 'Pizza, Salad', status: 'canceled', canceled: true},
+        {id: 3, items: 'Tacos, Guacamole', status: 'delivered', canceled: false},
+        ];
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const orderId = document.getElementById('order-id').value;
+        const newItems = document.getElementById('new-items').value;
+
+        // Find the order with the specified ID
+        const order = orders.find(o => o.id === parseInt(orderId));
+        if (order) {
+            // Check if the order can be edited
+            if (order.status === 'preparing' && !order.canceled) {
+            // Update the order's items
+            order.items = newItems;
+            console.log('Order updated successfully');
+            alert('Order updated successfully');
+            // Print the updated order details
+            console.log(`Updated order: ${JSON.stringify(order)}`);
+            alert(`Updated order: ${JSON.stringify(order)}`);
+            } else {
+            alert('This order cannot be edited now.');
+            }
+        } else {
+            alert('Invalid order ID.');
+        }
+        });
+    </script>
+</body>
+</html>
