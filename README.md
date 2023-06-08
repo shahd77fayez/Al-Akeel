@@ -1,4 +1,11 @@
 # Al-Akeel
+
+## To be able to run the ptoject: 
+1)download Red Hat CodeReady Studio
+2)import the project on it
+3)run on server 7.1
+
+## Summary:
 *Al-Akeel Company has developed an online order management platform for the past 15 years. The platform allows users to make online orders from a registered restaurant list. The platform also tracks and delivers such orders from the restaurant's locations to the customer. The platform serves clients from either a dedicated mobile application, web app, or assisted from customer service over the phone. The platform allows restaurant staff to manage their restaurants specific orders. The platform integrates with Bank Misr as a payment gateway to full-fill online payments for orders. The platform integrates with Aramex shipment company to manage the delivery of orders.*
 System Functionalities:
 
